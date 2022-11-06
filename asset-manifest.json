@@ -1,20 +1,20 @@
 {
   "files": {
     "main.css": "/AlcaboneOrganisation/static/css/main.40bfbb54.chunk.css",
-    "main.js": "/AlcaboneOrganisation/static/js/main.d103dced.chunk.js",
-    "main.js.map": "/AlcaboneOrganisation/static/js/main.d103dced.chunk.js.map",
+    "main.js": "/AlcaboneOrganisation/static/js/main.d2a4cfcd.chunk.js",
+    "main.js.map": "/AlcaboneOrganisation/static/js/main.d2a4cfcd.chunk.js.map",
     "runtime-main.js": "/AlcaboneOrganisation/static/js/runtime-main.00dd1d05.js",
     "runtime-main.js.map": "/AlcaboneOrganisation/static/js/runtime-main.00dd1d05.js.map",
-    "static/js/2.04d82596.chunk.js": "/AlcaboneOrganisation/static/js/2.04d82596.chunk.js",
-    "static/js/2.04d82596.chunk.js.map": "/AlcaboneOrganisation/static/js/2.04d82596.chunk.js.map",
+    "static/js/2.fc2bb289.chunk.js": "/AlcaboneOrganisation/static/js/2.fc2bb289.chunk.js",
+    "static/js/2.fc2bb289.chunk.js.map": "/AlcaboneOrganisation/static/js/2.fc2bb289.chunk.js.map",
     "index.html": "/AlcaboneOrganisation/index.html",
     "static/css/main.40bfbb54.chunk.css.map": "/AlcaboneOrganisation/static/css/main.40bfbb54.chunk.css.map",
-    "static/js/2.04d82596.chunk.js.LICENSE.txt": "/AlcaboneOrganisation/static/js/2.04d82596.chunk.js.LICENSE.txt"
+    "static/js/2.fc2bb289.chunk.js.LICENSE.txt": "/AlcaboneOrganisation/static/js/2.fc2bb289.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.00dd1d05.js",
-    "static/js/2.04d82596.chunk.js",
+    "static/js/2.fc2bb289.chunk.js",
     "static/css/main.40bfbb54.chunk.css",
-    "static/js/main.d103dced.chunk.js"
+    "static/js/main.d2a4cfcd.chunk.js"
   ]
 }
