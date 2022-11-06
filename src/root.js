@@ -7,9 +7,9 @@ const Root = ({ store }) => {
 
     return (
         <Provider store={store}>
-            <BrowserRouter basename="/">
+            <BrowserRouter basename="/AlcaboneOrganisation">
                 <Routes>
-                    <Route path="/" element={<App />} />
+                    <Route path="/AlcaboneOrganisation" element={<App />} />
                     {/*<Route path="/:wallet" element={<App />} />*/}
                 </Routes>
             </BrowserRouter>
