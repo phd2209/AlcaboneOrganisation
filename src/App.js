@@ -19,6 +19,7 @@ function App() {
 
   React.useEffect(() => {
     const paramsAsObject = Object.fromEntries([...searchParams])
+    console.log(paramsAsObject)
     if ('wallet' in paramsAsObject){
       dispatch(setWalletAddressAndFetchNFTs(paramsAsObject['wallet']))      
     }
