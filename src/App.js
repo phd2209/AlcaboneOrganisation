@@ -1,25 +1,45 @@
-import logo from './logo.svg';
+import React from 'react';
+import {useSelector, useDispatch} from 'react-redux'
+import CssBaseline from '@mui/material/CssBaseline';
+import Container from '@mui/material/Container';
+import EnterAddressView from './components/EnterAddressView';
+import AlcaboneTreeView from './components/AlcaboneTreeView';
 import './App.css';
+// theme
+import ThemeConfig from './theme';
+import GlobalStyles from './theme/globalStyles';
+import { useSearchParams } from "react-router-dom";
+import { setWalletAddressAndFetchNFTs } from './redux/actions';
 
 function App() {
+  const page = useSelector(state => state.page)
+  const dispatch = useDispatch()
+
+  const [searchParams] = useSearchParams();
+
+  React.useEffect(() => {
+    const paramsAsObject = Object.fromEntries([...searchParams])
+    if ('wallet' in paramsAsObject){
+      dispatch(setWalletAddressAndFetchNFTs(paramsAsObject['wallet']))      
+    }
+     // eslint-disable-next-line react-hooks/exhaustive-deps 
+  }, []);
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeConfig>
+      <GlobalStyles />    
+          <CssBaseline />
+          <Container maxWidth={false}>        
+              {(page === "enterAdressView") ?
+                <EnterAddressView />
+              :              
+                <AlcaboneTreeView />
+            }
+          </Container>
+        </ThemeConfig>
   );
 }
 
-export default App;
+export default App
+

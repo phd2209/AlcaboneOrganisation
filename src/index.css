@@ -5,9 +5,74 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /*background-color: rgb(234, 238, 243);*/
+  background-color: #000;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+
+/* draw connectors between parent elements */
+#orgtree ul::before {
+  content: "";
+  position: absolute;
+  top: 0vh;
+  left: 50%;
+  border: solid 1px;
+  height: 2.5vh;
+  color: #fff
+}
+
+#orgtree ul:first-child::before {
+  display: none;
+}
+
+/* draw connectors between siblings */
+/* vertical connectors */
+#orgtree li::before {
+  content: "";
+  top: 0;
+  left: 50%;
+  height: 2.5vh;
+  position: absolute;
+  border: solid 1px;
+  color: #fff
+}
+
+/* horizontal connectors */
+#orgtree li::after {
+  content: "";
+  top: 0;
+  width: 100%;
+  position: absolute;
+  border-top: solid 1px;
+  color: #fff
+}
+
+/* remove the horizontal connector for the only child */
+#orgtree li:only-child::after {
+  display: none;
+}
+
+/* remove extra left and right horizontal connector */
+#orgtree li:first-of-type::after {
+  width: 50%;
+  right: 0;
+}
+
+#orgtree li:last-of-type::after {
+  width: 50%;
+  left: 0;
+}
+
+/* remove connectors before only child */
+#orgtree li:only-child {
+  padding-top: 0;
+}
+
+#orgtree li:only-child::before {
+  display: none;
 }
