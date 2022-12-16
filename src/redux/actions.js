@@ -19,7 +19,6 @@ const GetOpenSeaData = async (address) => {
         url = getOwnerItems(address, cursor)
         resp = await axios.get(url);
         data = resp.data
-        console.log(data)
         cursor = data.next
         res = res.concat(data.assets)
       }
@@ -48,7 +47,8 @@ export const setWalletAddressAndFetchNFTs = (address) => {
       });
 
       const { res, families } = await GetOpenSeaData(address)
-      
+      console.log(res)
+
       dispatch({
         type: GOT_WALLET_NFTS,
         payload: { res, families }

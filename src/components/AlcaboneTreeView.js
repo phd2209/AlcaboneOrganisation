@@ -161,7 +161,7 @@ function AlcaboneTreeView() {
 
   const NFTs  = useSelector(state => state.NFTs)
 
-  const { username } = NFTs[0].owner
+  /*const { username } = NFTs[0].owner*/
   const godfather = NFTs[Math.floor(Math.random()*NFTs.length)];
 
   let JsonDataInit = {
@@ -412,7 +412,7 @@ const downloadClicked = () => {
 
   const orgtree = document.getElementById("orgtree_inner");
   const element = ReactDOM.findDOMNode(orgtree);
-  const filename = username + ".png"
+  const filename = "Alcabones.png"
 
   const newWidth = element.scrollWidth - element.clientWidth;
   if (newWidth > element.clientWidth) {

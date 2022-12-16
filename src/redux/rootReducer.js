@@ -32,18 +32,16 @@ export default function rootReducer(state = initialState, action) {
         
         case actions.GOT_WALLET_NFTS: {
             const { res } = action.payload
-            
-            const nfts = res.map(item => { 
-                return {
+            console.log(res)
+            const nfts = res.map(item => (
+                {
                     token_id: item.token_id, 
                     image_preview_url: item.image_preview_url,
                     image_thumbnail_url: item.image_thumbnail_url,
-                    owner: item.owner["user"],
+                    /*owner: item.owner["user"],*/
                     traits: item.traits
-            }})
-            
+                }));
             const infoText = (res.length >= 6) ? "" : `With only ${res.length} Alcabones your organization is not big enough to worry about just yet.!`;
-
             return {
                 ...state,
                 infoText: infoText,
