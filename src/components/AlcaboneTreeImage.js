@@ -115,19 +115,6 @@ const useStyles = makeStyles((theme) => ({
     width: "120px",
     minWidth: "120px"
   },
-  testH: {
-    border: "5px solid red",
-    padding: "0.3em",
-    margin: "0.1em 1em",
-    borderRadius: "2px",
-    textAlign: "center",
-    background: "#fff",
-    maxWidth: "120px",
-    width: "120px",
-    minWidth: "120px"
-  },
-
-  
   thumb: {
     width: "110px",
     height: "120px"
@@ -169,13 +156,19 @@ https://phd2209.github.io/AlcaboneOrganisation/#?wallet=0x719aB00d9c4546614008A3
 https://phd2209.github.io/AlcaboneOrganisation/
 */
 
-function AlcaboneTreeView() {
-  const classes = useStyles();
+function AlcaboneTreeImage() {
 
-  const Wallet = useSelector(state => state.address)
+  const classes = useStyles();
+  const [generated, setGenerated] = React.useState(0)
+  const [base64img, setBase64img] = React.useState("")
+
   const NFTs  = useSelector(state => state.NFTs)
-  const tokenid = useSelector(state => state.tokenid)
   
+  React.useEffect(() => {
+    if (generated === 0) {
+      setGenerated(1)
+    }
+  }, [])
   /*const { username } = NFTs[0].owner*/
   const godfather = NFTs[Math.floor(Math.random()*NFTs.length)];
 
@@ -183,7 +176,7 @@ function AlcaboneTreeView() {
     Parent: {
       token_id: godfather.token_id,
       img: godfather.image_thumbnail_url,
-      age: Wallet.substring(0,6),
+      age: "Godfather",
       children: []
     }
   }
@@ -191,11 +184,11 @@ function AlcaboneTreeView() {
   const generateFamilyStruncture = (item, family, level) => {
 
     if (level === 1) {
-      let gangsta = { img: item.image_thumbnail_url, name: "", family: family, traits: item.traits, age: "Underboss" /*"Tribe leader"*/, token_id: item.token_id, children: []}
+      let gangsta = { img: item.image_thumbnail_url, name: "", family: family, traits: item.traits, age: "Underboss" /*"Tribe leader"*/, children: []}
       JsonDataInit.Parent["children"].push(gangsta)
     }
     if ((1 < level) && (level <= 3)) {
-      let gangsta1 = { img: item.image_thumbnail_url, name: "", family: family, traits: item.traits, age: "Capo" /*"Tribe hot head"*/, token_id: item.token_id, children: []}
+      let gangsta1 = { img: item.image_thumbnail_url, name: "", family: family, traits: item.traits, age: "Capo" /*"Tribe hot head"*/, children: []}
       let underboss = JsonDataInit.Parent["children"].filter(item => item.family === family)      
       if (underboss.length > 0)
       {
@@ -203,7 +196,7 @@ function AlcaboneTreeView() {
       }
     }
     if ((3 < level) && (level <= 7)) {
-      let gangsta2 = { img: item.image_thumbnail_url, name: "", family: family, traits: item.traits, age: "Soldier", token_id: item.token_id, children: []}
+      let gangsta2 = { img: item.image_thumbnail_url, name: "", family: family, traits: item.traits, age: "Soldier", children: []}
       let underboss = JsonDataInit.Parent["children"].filter(item => item.family === family)
       if (underboss.length > 0) {
         if (level === 4 || level === 5) {
@@ -217,7 +210,7 @@ function AlcaboneTreeView() {
       }
     }
     if ((7 < level) && (level <= 13)) {
-      let gangsta3 = { img: item.image_thumbnail_url, name: "", family: family, traits: item.traits, age: "Prospect", token_id: item.token_id, children: []}
+      let gangsta3 = { img: item.image_thumbnail_url, name: "", family: family, traits: item.traits, age: "Prospect", children: []}
       let underboss = JsonDataInit.Parent["children"].filter(item => item.family === family)
       if (underboss.length > 0) {
         if (level === 8 || level === 9 || level === 10) {
@@ -302,18 +295,17 @@ function AlcaboneTreeView() {
       return "RGB(8, 91, 121)"
     }    
   }
-
  const gotoOpenSea = (token_id) => {
   if (token_id) {
-    const url = "https://opensea.io/assets/ethereum/0x8ca5209d8cce34b0de91c2c4b4b14f20aff8ba23/" + token_id
-    console.log(url)
-    window.open(url, '_blank');
+  const url = "https://opensea.io/assets/ethereum/0x8ca5209d8cce34b0de91c2c4b4b14f20aff8ba23/" + token_id
+  console.log(url)
+  window.open(url, '_blank');
   }
  }  
 
   const generateHtmlStructure = (json) => {    
     let { Parent } =  json 
-    console.log(json)
+    
     return (
       <div 
         id="orgtree"
@@ -321,7 +313,7 @@ function AlcaboneTreeView() {
       <ul className={classes.orgChartUl}>
         
         <li key={Parent.token_id} className={classes.orgChartLi} id="orgtree_inner" onClick={() => gotoOpenSea(Parent.token_id)}>              
-          <div className={(Parent.token_id !== tokenid) ? classes.test : classes.testH}>
+          <div className={classes.test}>
             <img className={classes.thumb} key={"don"+Parent.token_id} src={Parent.img} alt=""/>                
             <Typography sx={{fontSize: "10px", color: '#000', display:"block" }} variant="overline">{Parent.age}</Typography>
           </div>            
@@ -331,17 +323,17 @@ function AlcaboneTreeView() {
             {                 
             return (       
               
-                <li key={boss.token_id} className={classes.orgChartLi} onClick={() => gotoOpenSea(boss.token_id)}>                  
-                  
+                <li key={boss.token_id} className={classes.orgChartLi} onClick={() => gotoOpenSea(boss.token_id)}>
                   <div key={boss.token_id + "header"} className={classes.test} style={{background: generateColor(boss.family) }}>
-                    <Box>
+                  <Box>
                       <Typography sx={{fontSize: "10px", color: '#fff', display:"block", letterSpacing: "0px" }} variant="overline">{boss.family}</Typography>
                     </Box>
                   </div>
+                  <div key={boss.token_id + "actual"} className={classes.test}>
 
-                  <div key={boss.token_id + "actual"} className={(boss.token_id !== tokenid) ? classes.test : classes.testH}>
                     <img className={classes.thumb} key={"underboss"+boss.token_id} src={boss.img} alt=""/>
-                    <Typography sx={{fontSize: "10px", color: '#000', display:"block" }} variant="overline">{boss.age}</Typography>                    
+                    <Typography sx={{fontSize: "10px", color: '#000', display:"block" }} variant="overline">{boss.age}</Typography>
+                    
                   </div>
                   {boss.children && boss.children.length > 0 &&
                   <ul className={classes.orgChartUl}>
@@ -349,7 +341,7 @@ function AlcaboneTreeView() {
                   {
                     return (                                  
                       <li key={capo.token_id} className={classes.orgChartLi} onClick={() => gotoOpenSea(capo.token_id)}>                             
-                      <div className={(capo.token_id !== tokenid) ? classes.test : classes.testH }>
+                      <div className={classes.test}>
                         <img className={classes.thumb} key={"capo"+capo.token_id} src={capo.img} alt=""/>                
                         <Typography sx={{fontSize: "10px", color: '#000', display:"block" }} variant="overline">{capo.age}</Typography>
                       </div>
@@ -360,7 +352,7 @@ function AlcaboneTreeView() {
                             return (            
                               
                               <li key={soldier.token_id} className={classes.orgChartLi} onClick={() => gotoOpenSea(soldier.token_id)}>                             
-                              <div className={(soldier.token_id !== tokenid) ? classes.test : classes.testH}>
+                              <div className={classes.test}>
                                 <img className={classes.thumb} key={"soldier"+soldier.token_id} src={soldier.img} alt=""/>                
                                 <Typography sx={{fontSize: "10px", color: '#000', display:"block" }} variant="overline">{soldier.age}</Typography>
                               </div>
@@ -372,7 +364,7 @@ function AlcaboneTreeView() {
                                   return (            
                                     
                                     <li key={prospect.token_id} className={classes.orgChartLi} onClick={() => gotoOpenSea(prospect.token_id)}>                             
-                                    <div className={(prospect.token_id !== tokenid) ? classes.test : classes.testH}>
+                                    <div className={classes.test}>
                                       <img className={classes.thumb} key={"prospect"+prospect.token_id} src={prospect.img} alt=""/>                
                                       <Typography sx={{fontSize: "10px", color: '#000', display:"block" }} variant="overline">{prospect.age}</Typography>
                                     </div>
@@ -399,27 +391,7 @@ function AlcaboneTreeView() {
     )    
 }
 
-const saveAs = (uri, filename) => {
-  var link = document.createElement('a');
-  if (typeof link.download === 'string') {
-
-      link.href = uri;
-      link.download = filename;
-
-      //Firefox requires the link to be in the body
-      document.body.appendChild(link);
-
-      //simulate click
-      link.click();
-
-      //remove the link when done
-      document.body.removeChild(link);
-  } else {
-      window.open(uri);
-  }
-}
-
-const downloadClicked = () => {
+const generateBase64 = () => {
 
   const html = document.getElementsByTagName("html")[0];
   const body = document.getElementsByTagName("body")[0];
@@ -428,7 +400,6 @@ const downloadClicked = () => {
 
   const orgtree = document.getElementById("orgtree_inner");
   const element = ReactDOM.findDOMNode(orgtree);
-  const filename = "Alcabones.png"
 
   const newWidth = element.scrollWidth - element.clientWidth;
   if (newWidth > element.clientWidth) {
@@ -442,44 +413,30 @@ const downloadClicked = () => {
     html2canvas(element,{
       useCORS: true,
     }).then(function (canvas) {
-        saveAs(canvas.toDataURL(), filename);
+        setBase64img(canvas.toDataURL('image/png'))
+        console.log(canvas.toDataURL('image/png'));
+        //saveAs(canvas.toDataURL(), filename);
     });
     }
     html.style.width = null;
     body.style.width = null;
-}
+  }
 
   const NFTs_adjusted = NFTs.filter(token => token.token_id !== godfather.token_id)
   let json = generateJsonStructure(NFTs_adjusted)
 
-  return (
+  return (   
     <Grid
       container
       spacing={2}
       sx={{mt: 2}}
       className={classes.grid}
     >
-      <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ px: 1, py: 2 }}>
-          {/*<Grid item xs={12} sm={6} md={4} lg={3}>
-            <AlcaboneStatistic  color='red' title="Owner" count={username} />
-          </Grid>
-          <Grid item xs={12} sm={6} md={4} lg={3}>
-            <AlcaboneStatistic color='red' title="Members" count={NFTs.length} />
-          </Grid>
-        <Typography sx={{fontWeight: 'fontWeightBold', color: 'red' }} variant="overline" gutterBottom>Report: {username}</Typography>
-        */}
-        <Tooltip title="Download Org chart">
-            <IconButton color="error" onClick={() => downloadClicked()}>
-                <Iconify icon="eva:download-fill" />
-            </IconButton>
-        </Tooltip>
-      </Stack>
       <Paper className={classes.paper} elevation={3}>        
-        {generateHtmlStructure(json)}
+        {generated === 0 && base64img === "" ? generateHtmlStructure(json) : base64img}
       </Paper>
     </Grid>
-   
   );
 }
 
-export default AlcaboneTreeView
+export default AlcaboneTreeImage

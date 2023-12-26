@@ -7,7 +7,8 @@ const initialState = {
     address: "",
     NFTs: [],
     families: [],
-    page: "enterAdressView",    
+    page: "enterAdressView",
+    tokenid: undefined
 }
 
 export default function rootReducer(state = initialState, action) {
@@ -21,6 +22,15 @@ export default function rootReducer(state = initialState, action) {
                     address: address
                 };
         }
+
+        case actions.SET_TOKEN_ID: {
+            let { tokenid } = action.payload
+            tokenid = tokenid.trim()
+                return {
+                    ...state,
+                    tokenid: tokenid
+                };
+        }        
 
         case actions.GET_WALLET_NFTS: {
             return {
@@ -41,13 +51,13 @@ export default function rootReducer(state = initialState, action) {
                     /*owner: item.owner["user"],*/
                     traits: item.traits
                 }));
-            const infoText = (res.length >= 6) ? "" : `With only ${res.length} Alcabones your organization is not big enough to worry about just yet.!`;
+            const infoText = (res.length >= 1) ? "" : `With only ${res.length} Alcabones your organization is not big enough to worry about just yet.!`;
             return {
                 ...state,
                 infoText: infoText,
                 loadingText: "",
                 NFTs: nfts,
-                page: (res.length >= 6) ? "alcaboneTreeView": state.page 
+                page: (res.length >= 1) ? "alcaboneTreeView": state.page 
             };            
         }
 
