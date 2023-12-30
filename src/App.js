@@ -17,7 +17,6 @@ import { setWalletAddressAndFetchNFTs } from './redux/actions';
 function App() {
   const page = useSelector(state => state.page)
   const dispatch = useDispatch()
-
   const [searchParams] = useSearchParams();
 
   React.useEffect(() => {
@@ -37,14 +36,14 @@ function App() {
   return (
     <ThemeConfig>
       <GlobalStyles />    
-          <CssBaseline />
+          <CssBaseline />          
           <Container maxWidth={false}>        
               {(page === "enterAdressView") ?
                 <EnterAddressView />
               :              
                 <AlcaboneTreeView />
-            }
-          </Container>
+            }           
+          </Container>          
         </ThemeConfig>
   );
 }
