@@ -4,20 +4,38 @@ export const GET_WALLET_NFTS = 'GET_WALLET_NFTS'
 export const GOT_WALLET_NFTS = 'GOT_WALLET_NFTS'
 export const FAILED_API_CALL = 'FAILED_API_CALL'
 export const SET_TOKEN_ID = 'SET_TOKEN_ID'
+export const GET_BIGGEST_OWNERS = 'GET_BIGGEST_OWNERS'
+export const GOT_BIGGEST_OWNERS = 'GOT_BIGGEST_OWNERS'
 
-let apikey = "49b8307bb28c4f4bb5d968ed01612dec"
-//let apiKeyEtherScan=""
+const apikey = "49b8307bb28c4f4bb5d968ed01612dec"
+const etherscanApiKey = '7WXJ2PBF9PPISSP194U9IHCS89X79ZA5NE'
 
 const getOwnerItems  = (contractAddress, cursor) => 
   (!cursor) ? `https://api.opensea.io/api/v1/assets?asset_contract_address=0x8Ca5209d8CCe34b0de91C2C4b4B14F20AFf8BA23&owner=${contractAddress}&order_direction=desc&limit=50` :
               `https://api.opensea.io/api/v1/assets?asset_contract_address=0x8Ca5209d8CCe34b0de91C2C4b4B14F20AFf8BA23&owner=${contractAddress}&order_direction=desc&limit=50&cursor=${cursor}`
 
-/*
-const getOwnerItemsEtherScan = (contractAddress, cursor) =>
-  (!cursor) ? `https://api.etherscan.io/api?module=account&action=addresstokennftinventory&address=${contractAddress}&contractaddress=0x8Ca5209d8CCe34b0de91C2C4b4B14F20AFf8BA23&page=1&offset=100&apikey=${apiKeyEtherScan}` :
-              `https://api.etherscan.io/api?module=account&action=addresstokennftinventory&address=${contractAddress}&contractaddress=0x8Ca5209d8CCe34b0de91C2C4b4B14F20AFf8BA23&page=2&offset=100&apikey=${apiKeyEtherScan}`
 
-*/
+const get25BiggestHolders = () =>
+  `https://api.etherscan.io/api?module=token&action=tokeninfo&contractaddress=0x8Ca5209d8CCe34b0de91C2C4b4B14F20AFf8BA23&page=1&offset=25&apikey=${etherscanApiKey}`
+
+  const GetEtherscanData = async () => {   
+
+    try 
+    { 
+      let resp = [], res = [], url = "", data={};
+      url = get25BiggestHolders()
+      resp = await axios.get(url /*, { headers: { "X-API-KEY": etherscanApiKey } }*/);
+      data = resp.data
+      res = res.concat(data.assets)
+      return res
+    } 
+    catch (error) 
+    {
+      console.log("error in resp ", error);
+      return null
+    }
+}                
+
 
 const GetOpenSeaData = async (address) => {   
   
@@ -43,6 +61,33 @@ const GetOpenSeaData = async (address) => {
     }
 }  
 
+export const fetchBiggestWallets = () => {
+  return async function(dispatch) {    
+    try {
+      //Get NFTS
+      dispatch({
+        type: GET_BIGGEST_OWNERS,
+      });
+
+      const { res } = await GetEtherscanData()
+      console.log(res)
+
+      dispatch({
+        type: GOT_BIGGEST_OWNERS,
+        payload: { res }
+      }); 
+
+    } catch (err) {
+      console.log(err)
+
+      dispatch({
+        type: FAILED_API_CALL,
+        payload: { err }
+      });       
+    }    
+
+  }
+}
 export const setWalletAddressAndFetchNFTs = (address, tokenid) => {
   return async function(dispatch) {
     console.log(address, tokenid)

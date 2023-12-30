@@ -118,18 +118,10 @@ const useStyles = makeStyles((theme) => ({
       }
     },
   },
-  test_lv1: {
-    /*padding: "0.3em",*/
+  test_lv1: {    
+    border: "4px solid gold",
+    fontSize: "1.3em",
     margin: "0.1em 1em",
-    /*borderRadius: "2px",
-    textAlign: "center",
-    background: "#fff",*/
-    fontSize: "1.2em",
-    /*maxWidth: "120px",
-    width: "120px",*/
-    minWidth: "120px",
-    border: "3px solid gold",
-    padding: "10px",
     background: "rgba(0, 0, 0, 0.5)",
     '&::after': {
       content: '',
@@ -144,17 +136,9 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   test_lv2: {
-    /*padding: "0.3em",*/
+    border: "3px solid silver",
     margin: "0.1em 1em",
-    /*borderRadius: "2px",
-    textAlign: "center",
-    background: "#fff",*/
-    fontSize: "1.1em",
-    /*maxWidth: "120px",
-    width: "120px",*/
-    minWidth: "120px",
-    border: "2px solid silver",
-    padding: "8px",  
+    fontSize: "1.2em",
     background: "rgba(0, 0, 0, 0.5)",
     '&::after': {
       content: '.',
@@ -169,32 +153,23 @@ const useStyles = makeStyles((theme) => ({
     }    
   },
   test_lv3: {
-    /*padding: "0.3em",*/
-    margin: "0.1em 1em",
-    /*borderRadius: "2px",
-    textAlign: "center",
-    background: "#fff",*/
-    fontSize: "1em",
-    /*maxWidth: "120px",
-    width: "120px",*/
-    minWidth: "120px",
     border: "2px solid #CD7F32",
-    padding: "6px",
+    margin: "0.1em 1em",
+    fontSize: "1.1em",
     background: "rgba(0, 0, 0, 0.5)"
   },
 
   test_lv4: {
-    /*padding: "0.3em",*/
+    border: "1.5px solid black",
     margin: "0.1em 1em",
-    /*borderRadius: "2px",
-    textAlign: "center",
-    background: "#fff",*/
-    fontSize: "0.9em",
-    /*maxWidth: "120px",
-    width: "120px",*/
-    minWidth: "120px",
+    fontSize: "1em",
+    background: "rgba(0, 0, 0, 0.5)"
+  },
+
+  test_lv5: {
     border: "1px solid black",
-    padding: "4px",
+    margin: "0.1em 1em",
+    fontSize: "0.9em",
     background: "rgba(0, 0, 0, 0.5)"
   },
 
@@ -422,7 +397,7 @@ function AlcaboneTreeView() {
               
                 <li key={boss.token_id} className={classes.orgChartLi} onClick={() => gotoOpenSea(boss.token_id)}>                  
                   
-                  <div key={boss.token_id + "header"} className={classes.hierarchyTitle} style={{background: generateColor(boss.family), minWidth:"120px" }}>
+                  <div key={boss.token_id + "header"} className={classes.hierarchyTitle} style={{background: generateColor(boss.family), minWidth:"115px" }}>
                     <Box>
                       <Typography sx={{fontSize: "10px", color: '#fff', display:"block", letterSpacing: "0px",  textShadow: "2px 2px 4px #000" }} variant="overline">{boss.family}</Typography>
                     </Box>
@@ -430,7 +405,7 @@ function AlcaboneTreeView() {
 
                   <div key={boss.token_id + "actual"} className={(boss.token_id !== tokenid) ? classes.test_lv2 : classes.testH}>
                     <img className={classes.thumb} key={"underboss"+boss.token_id} src={boss.img} alt=""/>
-                    <Typography sx={{fontSize: "10px", color: '#000', display:"block", background: "silver", marginTop:"2px",  textShadow: "2px 2px 4px #000" }} variant="overline">{boss.age}</Typography>                    
+                    <Typography sx={{fontSize: "10px", color: '#000', display:"block", background: "silver", marginTop:"1px",  textShadow: "2px 2px 4px #000" }} variant="overline">{boss.age}</Typography>                    
                   </div>
                   {boss.children && boss.children.length > 0 &&
                   <ul className={classes.orgChartUl}>
@@ -440,7 +415,7 @@ function AlcaboneTreeView() {
                       <li key={capo.token_id} className={classes.orgChartLi} onClick={() => gotoOpenSea(capo.token_id)}>                             
                       <div className={(capo.token_id !== tokenid) ? classes.test_lv3 : classes.testH }>
                         <img className={classes.thumb} key={"capo"+capo.token_id} src={capo.img} alt=""/>                
-                        <Typography sx={{fontSize: "10px", color: '#000', display:"block", background: "silver", marginTop:"2px",  textShadow: "2px 2px 4px #000" }} variant="overline">{capo.age}</Typography>
+                        <Typography sx={{fontSize: "10px", color: '#000', display:"block", background: "#CD7F32", marginTop:"1px",  textShadow: "2px 2px 4px #000" }} variant="overline">{capo.age}</Typography>
                       </div>
                       {capo.children && capo.children.length > 0 && 
                         <ul className={classes.orgChartUl}>
@@ -451,7 +426,7 @@ function AlcaboneTreeView() {
                               <li key={soldier.token_id} className={classes.orgChartLi} onClick={() => gotoOpenSea(soldier.token_id)}>                             
                               <div className={(soldier.token_id !== tokenid) ? classes.test_lv4 : classes.testH}>
                                 <img className={classes.thumb} key={"soldier"+soldier.token_id} src={soldier.img} alt=""/>                
-                                <Typography sx={{fontSize: "10px", color: '#000', display:"block", background: "silver", marginTop:"2px",  textShadow: "2px 2px 4px #000" }} variant="overline">{soldier.age}</Typography>
+                                <Typography sx={{fontSize: "10px", color: '#000', display:"block", background: "silver", marginTop:"1px",  textShadow: "2px 2px 4px #000" }} variant="overline">{soldier.age}</Typography>
                               </div>
                               {soldier.children && soldier.children.length > 0 && 
 
@@ -460,9 +435,9 @@ function AlcaboneTreeView() {
                                 {
                                   return (                                                
                                     <li key={prospect.token_id} className={classes.orgChartLi} onClick={() => gotoOpenSea(prospect.token_id)}>                             
-                                    <div className={(prospect.token_id !== tokenid) ? classes.test_lv4 : classes.testH}>
+                                    <div className={(prospect.token_id !== tokenid) ? classes.test_lv5 : classes.testH}>
                                       <img className={classes.thumb} key={"prospect"+prospect.token_id} src={prospect.img} alt=""/>                
-                                      <Typography sx={{fontSize: "10px", color: '#000', display:"block", background: "silver", marginTop:"2px" }} variant="overline">{prospect.age}</Typography>
+                                      <Typography sx={{fontSize: "10px", color: '#000', display:"block", background: "silver", marginTop:"1px" }} variant="overline">{prospect.age}</Typography>
                                     </div>
                                     </li>  
                                   )

@@ -9,7 +9,7 @@ import './App.css';
 import ThemeConfig from './theme';
 import GlobalStyles from './theme/globalStyles';
 import { useSearchParams } from "react-router-dom";
-import { setWalletAddressAndFetchNFTs } from './redux/actions';
+import { setWalletAddressAndFetchNFTs,  fetchBiggestWallets} from './redux/actions';
 
 //Use this to generate the chart:
 //http://localhost:3000/AlcaboneOrganisation/#?wallet=0x719aB00d9c4546614008A35C8e69d4AC1698785E&tokenid=395
@@ -21,14 +21,17 @@ function App() {
 
   React.useEffect(() => {
     const paramsAsObject = Object.fromEntries([...searchParams])
-    console.log(paramsAsObject)
+    
     if ('wallet' in paramsAsObject && 'tokenid' in paramsAsObject){
       dispatch(setWalletAddressAndFetchNFTs(paramsAsObject['wallet'],paramsAsObject['tokenid'] ))      
     }
     else if ('wallet' in paramsAsObject){
       dispatch(setWalletAddressAndFetchNFTs(paramsAsObject['wallet']))      
+    }    
+    else {
+      console.log("we did not recieve parms")
+      dispatch(fetchBiggestWallets())
     }
-    
      // eslint-disable-next-line react-hooks/exhaustive-deps 
   }, []);
 
@@ -37,7 +40,10 @@ function App() {
     <ThemeConfig>
       <GlobalStyles />    
           <CssBaseline />          
-          <Container maxWidth={false}>        
+          <Container maxWidth={false}>
+
+
+
               {(page === "enterAdressView") ?
                 <EnterAddressView />
               :              

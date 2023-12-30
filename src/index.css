@@ -4,8 +4,7 @@ body {
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  /*background-color: rgb(234, 238, 243);*/
+  -moz-osx-font-smoothing: grayscale;  
   background-color: #000;
 }
 
@@ -23,7 +22,8 @@ code {
   left: 50%;
   border: solid 1px;
   height: 2.5vh;
-  color: #fff
+  /*color: #fff*/
+  color: linear-gradient(to right, rgba(255, 255, 255, 0), #fff, rgba(255, 255, 255, 0));
 }
 
 #orgtree ul:first-child::before {
@@ -39,17 +39,20 @@ code {
   height: 2.5vh;
   position: absolute;
   border: solid 1px;
-  color: #fff
+  /*color: #fff;*/
+  color: linear-gradient(to right, rgba(255, 255, 255, 0), #fff, rgba(255, 255, 255, 0));
 }
 
 /* horizontal connectors */
 #orgtree li::after {
   content: "";
-  top: 0;
+  top: 0;  
   width: 100%;
   position: absolute;
   border-top: solid 1px;
-  color: #fff
+  /*color: #fff*/
+  color: linear-gradient(to right, rgba(255, 255, 255, 0), #fff, rgba(255, 255, 255, 0));
+  height: 2px; /* Line thickness */  
 }
 
 /* remove the horizontal connector for the only child */
