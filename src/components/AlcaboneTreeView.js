@@ -105,16 +105,60 @@ const useStyles = makeStyles((theme) => ({
       }
     },
   },
-  test: {
-    padding: "0.3em",
+  test_lv1: {
+    /*padding: "0.3em",*/
     margin: "0.1em 1em",
-    borderRadius: "2px",
+    /*borderRadius: "2px",
     textAlign: "center",
-    background: "#fff",
-    maxWidth: "120px",
-    width: "120px",
-    minWidth: "120px"
+    background: "#fff",*/
+    fontSize: "1.2em",
+    /*maxWidth: "120px",
+    width: "120px",*/
+    minWidth: "120px",
+    border: "3px solid gold",
+    padding: "10px"
   },
+  test_lv2: {
+    /*padding: "0.3em",*/
+    margin: "0.1em 1em",
+    /*borderRadius: "2px",
+    textAlign: "center",
+    background: "#fff",*/
+    fontSize: "1.1em",
+    /*maxWidth: "120px",
+    width: "120px",*/
+    minWidth: "120px",
+    border: "2px solid silver",
+    padding: "8px"  
+  },
+  test_lv3: {
+    /*padding: "0.3em",*/
+    margin: "0.1em 1em",
+    /*borderRadius: "2px",
+    textAlign: "center",
+    background: "#fff",*/
+    fontSize: "1em",
+    /*maxWidth: "120px",
+    width: "120px",*/
+    minWidth: "120px",
+    border: "2px solid #CD7F32",
+    padding: "6px"  
+  },
+
+  test_lv4: {
+    /*padding: "0.3em",*/
+    margin: "0.1em 1em",
+    /*borderRadius: "2px",
+    textAlign: "center",
+    background: "#fff",*/
+    fontSize: "0.9em",
+    /*maxWidth: "120px",
+    width: "120px",*/
+    minWidth: "120px",
+    border: "1px solid black",
+    padding: "4px"  
+  },
+
   testH: {
     border: "5px solid red",
     padding: "0.3em",
@@ -305,15 +349,14 @@ function AlcaboneTreeView() {
 
  const gotoOpenSea = (token_id) => {
   if (token_id) {
-    const url = "https://opensea.io/assets/ethereum/0x8ca5209d8cce34b0de91c2c4b4b14f20aff8ba23/" + token_id
-    console.log(url)
+    const url = "https://opensea.io/assets/ethereum/0x8ca5209d8cce34b0de91c2c4b4b14f20aff8ba23/" + token_id    
     window.open(url, '_blank');
   }
  }  
 
   const generateHtmlStructure = (json) => {    
     let { Parent } =  json 
-    console.log(json)
+    
     return (
       <div 
         id="orgtree"
@@ -321,7 +364,7 @@ function AlcaboneTreeView() {
       <ul className={classes.orgChartUl}>
         
         <li key={Parent.token_id} className={classes.orgChartLi} id="orgtree_inner" onClick={() => gotoOpenSea(Parent.token_id)}>              
-          <div className={(Parent.token_id !== tokenid) ? classes.test : classes.testH}>
+          <div className={(Parent.token_id !== tokenid) ? classes.test_lv1 : classes.testH}>
             <img className={classes.thumb} key={"don"+Parent.token_id} src={Parent.img} alt=""/>                
             <Typography sx={{fontSize: "10px", color: '#000', display:"block" }} variant="overline">{Parent.age}</Typography>
           </div>            
@@ -339,9 +382,9 @@ function AlcaboneTreeView() {
                     </Box>
                   </div>
 
-                  <div key={boss.token_id + "actual"} className={(boss.token_id !== tokenid) ? classes.test : classes.testH}>
+                  <div key={boss.token_id + "actual"} className={(boss.token_id !== tokenid) ? classes.test_lv2 : classes.testH}>
                     <img className={classes.thumb} key={"underboss"+boss.token_id} src={boss.img} alt=""/>
-                    <Typography sx={{fontSize: "10px", color: '#000', display:"block" }} variant="overline">{boss.age}</Typography>                    
+                    <Typography sx={{fontSize: "10px", color: '#000', display:"block", background: generateColor(boss.family), marginTop:"2px" }} variant="overline">{boss.age}</Typography>                    
                   </div>
                   {boss.children && boss.children.length > 0 &&
                   <ul className={classes.orgChartUl}>
@@ -349,9 +392,9 @@ function AlcaboneTreeView() {
                   {
                     return (                                  
                       <li key={capo.token_id} className={classes.orgChartLi} onClick={() => gotoOpenSea(capo.token_id)}>                             
-                      <div className={(capo.token_id !== tokenid) ? classes.test : classes.testH }>
+                      <div className={(capo.token_id !== tokenid) ? classes.test_lv3 : classes.testH }>
                         <img className={classes.thumb} key={"capo"+capo.token_id} src={capo.img} alt=""/>                
-                        <Typography sx={{fontSize: "10px", color: '#000', display:"block" }} variant="overline">{capo.age}</Typography>
+                        <Typography sx={{fontSize: "10px", color: '#000', display:"block", background: generateColor(boss.family), marginTop:"2px" }} variant="overline">{capo.age}</Typography>
                       </div>
                       {capo.children && capo.children.length > 0 && 
                         <ul className={classes.orgChartUl}>
@@ -360,9 +403,9 @@ function AlcaboneTreeView() {
                             return (            
                               
                               <li key={soldier.token_id} className={classes.orgChartLi} onClick={() => gotoOpenSea(soldier.token_id)}>                             
-                              <div className={(soldier.token_id !== tokenid) ? classes.test : classes.testH}>
+                              <div className={(soldier.token_id !== tokenid) ? classes.test_lv4 : classes.testH}>
                                 <img className={classes.thumb} key={"soldier"+soldier.token_id} src={soldier.img} alt=""/>                
-                                <Typography sx={{fontSize: "10px", color: '#000', display:"block" }} variant="overline">{soldier.age}</Typography>
+                                <Typography sx={{fontSize: "10px", color: '#000', display:"block", background: generateColor(boss.family), marginTop:"2px" }} variant="overline">{soldier.age}</Typography>
                               </div>
                               {soldier.children && soldier.children.length > 0 && 
 
@@ -372,9 +415,9 @@ function AlcaboneTreeView() {
                                   return (            
                                     
                                     <li key={prospect.token_id} className={classes.orgChartLi} onClick={() => gotoOpenSea(prospect.token_id)}>                             
-                                    <div className={(prospect.token_id !== tokenid) ? classes.test : classes.testH}>
+                                    <div className={(prospect.token_id !== tokenid) ? classes.test_lv4 : classes.testH}>
                                       <img className={classes.thumb} key={"prospect"+prospect.token_id} src={prospect.img} alt=""/>                
-                                      <Typography sx={{fontSize: "10px", color: '#000', display:"block" }} variant="overline">{prospect.age}</Typography>
+                                      <Typography sx={{fontSize: "10px", color: '#000', display:"block", background: generateColor(boss.family), marginTop:"2px" }} variant="overline">{prospect.age}</Typography>
                                     </div>
                                     </li>  
                                   )

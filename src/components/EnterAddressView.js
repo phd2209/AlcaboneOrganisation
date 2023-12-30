@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
       marginTop: "2rem",
   },
   grid: {
-    backgroundColor: "#000"
+    /*backgroundColor: "#000"*/
   },
   button: {
     margin: "0.5rem !important"
